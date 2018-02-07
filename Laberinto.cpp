@@ -26,7 +26,7 @@ int main(){
 	char** labMatrix = NULL;
 	//si el archivo existe
 	
-	if(file.is_open){
+	if(file.is_open()){
 		//leer el tamano
 		file >> size;
 	
