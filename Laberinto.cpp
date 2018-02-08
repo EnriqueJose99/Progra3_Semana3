@@ -13,8 +13,8 @@ void liberarMatriz(char**&, int);
 //Imprimir la matriz
 void imprimirMatriz(char**, int);
 
-//Slair del laberinto: lab, size, x, y
-
+//Salir del laberinto: lab, size, x, y
+bool salir(char**, int, int, int);
 
 
 int main(){
@@ -31,7 +31,7 @@ int main(){
 		file >> size;
 	
 
-		//inicializar la matriz del archivo
+		//inicializar la matriz del archivo	char** retValue = new char*[size];
 		labMatrix = provisionarMatriz(size);
 		//leer la matriz del archivo 
 		for(int i=0;i<size;i++)
@@ -45,7 +45,9 @@ int main(){
 		imprimirMatriz(labMatrix, size);
 
 		//salir del laberinto
-
+		salir(labMatrix, size, 1, 0);
+		//imprimir de nuevo 
+		imprimirMatriz(labMatrix, size);
 
 		//liberar matriz
 		liberarMatriz(labMatrix, size);
@@ -86,3 +88,44 @@ void imprimirMatriz(char** matriz, int size){
 		cout << endl;
 	}
 }
+
+
+//Salir
+bool salir(char** matriz, int size, int x, int y){
+	bool salio = false;
+	if(x >= 0 && x<= size - 1 && y>= 0 && y<= size -1){
+		matriz[x][y] == '*';
+		if(y ==  size - 1){
+			return true;
+
+		}else{
+
+			if(x > 0){
+				if(matriz[x-1][y] == '.'){
+					salir(matriz, size, x-1, y);
+				}
+			}
+			if(x < size -1){
+				if(matriz[x+1][y] == '.'){
+					salir(matriz, size, x+1,y);	
+				}
+			}
+			if(y > size -1 ){
+				if(matriz[x][y+1] == '.'){
+					salir(matriz, size, x, y+1);
+				}
+			}
+			if(y > 0){
+				if(matriz[x][y-1] == '.'){
+					salir(matriz, size, x, y-1);
+				}
+			}
+		}
+
+	}else{
+		return false;
+	}
+
+}
+
+
